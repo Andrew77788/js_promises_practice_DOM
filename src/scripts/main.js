@@ -1,15 +1,16 @@
 'use strict';
+
 const promise1 = new Promise((resolve, reject) => {
   const timeout = setTimeout(reject, 3000);
 
-  document.addEventListener('click', (event) => {
+  document.addEventListener('click', () => {
     clearTimeout(timeout);
     resolve();
   });
 });
 const promise2 = new Promise((resolve) => {
-  document.addEventListener('contextmenu', (event) => {
-    event.preventDefault();
+  document.addEventListener('contextmenu', (even) => {
+    even.preventDefault();
     resolve();
   });
 
@@ -18,16 +19,18 @@ const promise2 = new Promise((resolve) => {
 const promise3 = new Promise((resolve, reject) => {
   let leftClicked = false;
   let rightClicked = false;
-  document.addEventListener('contextmenu', (event) => {
+
+  document.addEventListener('contextmenu', () => {
     leftClicked = true;
-    console.log(leftClicked);
+
     if (leftClicked && rightClicked) {
       resolve();
     }
   });
-  document.addEventListener('click', (event) => {
+
+  document.addEventListener('click', () => {
     rightClicked = true;
-    console.log(rightClicked);
+
     if (leftClicked && rightClicked) {
       resolve();
     }
@@ -60,6 +63,7 @@ promise2.then(() => {
   errorDiv.textContent = 'Second promise was resolved';
   document.body.appendChild(errorDiv);
 });
+
 promise3.then(() => {
   const errorDiv = document.createElement('div');
 
